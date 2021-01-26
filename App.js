@@ -14,7 +14,9 @@ import {
   View,
   Text,
   StatusBar,
+  TouchableOpacity,
 } from 'react-native';
+import {Navigation} from 'react-native-navigation';
 
 import {
   Header,
@@ -24,7 +26,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const App: () => React$Node = () => {
+const App = (props) => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -32,7 +34,24 @@ const App: () => React$Node = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
-          <Header />
+          <TouchableOpacity
+            onPress={() =>
+              Navigation.showOverlay({
+                component: {
+                  name: 'com.rnnSandbox.Overlay',
+                  options: {
+                    layout: {
+                      componentBackgroundColor: 'transparent',
+                    },
+                    overlay: {
+                      interceptTouchOutside: false,
+                    },
+                  },
+                },
+              })
+            }>
+            <Header />
+          </TouchableOpacity>
           {global.HermesInternal == null ? null : (
             <View style={styles.engine}>
               <Text style={styles.footer}>Engine: Hermes</Text>
